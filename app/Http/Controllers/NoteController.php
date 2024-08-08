@@ -7,6 +7,7 @@ use App\Models\Note;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Http\Requests\NoteRequest;
 
 class NoteController extends Controller
 {
@@ -21,8 +22,9 @@ class NoteController extends Controller
         return view('note.create');
     }
 
-    public function store(Request $request):RedirectResponse{
+    public function store(NoteRequest $request):RedirectResponse{
         //better method because I used the rigth names in the form:
+
             Note::create($request->all());
             return redirect()->route('note.index');
 
@@ -46,7 +48,8 @@ class NoteController extends Controller
         return view('note.edit', compact('note'));
     }
 
-    public function update(Request $request, Note $note):RedirectResponse{
+    public function update(NoteRequest $request, Note $note):RedirectResponse{
+
         $note->update($request->all());
         return redirect()->route('note.index');
     }
